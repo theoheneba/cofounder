@@ -37,7 +37,7 @@ The **Cofounder** project is designed to streamline [insert project purpose or f
 - **Tailwind CSS** (Styling)
 - **Vite** (Build Tool)
 
----
+----
 
 ## Installation and Setup
 
