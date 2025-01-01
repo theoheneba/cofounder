@@ -12,10 +12,6 @@ dist
 dist-ssr
 *.local
 
-# Bolt
-.bolt/
-.bolt/*
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

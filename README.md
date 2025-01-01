@@ -1,50 +1,102 @@
-# Cofounder
+# CoFounderHub
 
-Welcome to the **Cofounder** repository! This project is built using modern web technologies and includes configurations for Supabase and Tailwind CSS. Below, you'll find helpful information about the repository, including setup instructions and the consolidated source code for quick copying.
-
----
-
-## Table of Contents
-
-1. [Project Overview](#project-overview)
-2. [Features](#features)
-3. [Technologies Used](#technologies-used)
-4. [Installation and Setup](#installation-and-setup)
-5. [Source Code (All-in-One)](#source-code-all-in-one)
-6. [License](#license)
-
----
-
-## Project Overview
-
-The **Cofounder** project is designed to streamline [insert project purpose or functionality]. This repository includes everything you need to get started, such as configurations for Supabase, Tailwind CSS, and a Vite-based TypeScript setup.
-
----
+A platform for connecting entrepreneurs with potential co-founders. Built with React, TypeScript, Tailwind CSS, and Supabase.
 
 ## Features
 
-- **Supabase Integration:** Pre-configured for database operations and migrations.
-- **Tailwind CSS:** Responsive and utility-first CSS framework for styling.
-- **Vite Setup:** Fast development environment with TypeScript support.
-- **Environment Configuration:** `.env` file for managing secrets and environment variables.
+- 🤝 Smart Co-founder Matching
+- 💬 Real-time Messaging
+- 🔒 Profile Verification
+- 📊 Analytics Dashboard
+- 📱 Responsive Design
+- 🎨 Modern UI/UX
 
----
+## Tech Stack
 
-## Technologies Used
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **State Management**: React Context
+- **Routing**: React Router
+- **Forms**: React Hook Form + Zod
+- **UI Components**: Custom components with Tailwind CSS
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
 
-- **TypeScript** (Primary Language)
-- **Supabase** (Database and Backend)
-- **Tailwind CSS** (Styling)
-- **Vite** (Build Tool)
+## Getting Started
 
-----
-
-## Installation and Setup
-
-Follow these steps to set up the project locally:
-
-1. **Clone the Repository:**
-
+1. Clone the repository:
    ```bash
    git clone https://github.com/theoheneba/cofounder.git
    cd cofounder
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env` file with your Supabase credentials:
+   ```
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Project Structure
+
+```
+src/
+├── components/        # Reusable UI components
+├── contexts/         # React Context providers
+├── hooks/           # Custom React hooks
+├── lib/             # Utilities and API functions
+├── pages/           # Page components
+└── types/           # TypeScript type definitions
+```
+
+## Features in Detail
+
+### Authentication
+- Email/password authentication
+- Protected routes
+- Profile creation during signup
+
+### Profiles
+- Detailed user profiles
+- Skills and expertise
+- Working preferences
+- Verification system
+
+### Matching
+- AI-powered matching algorithm
+- Compatibility scoring
+- Filter and search functionality
+
+### Messaging
+- Real-time chat
+- End-to-end encryption
+- File attachments
+- Read receipts
+
+### Analytics
+- Profile views
+- Connection statistics
+- Response rates
+- Match quality metrics
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

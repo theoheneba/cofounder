@@ -3,24 +3,15 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      animation: {
-        blob: "blob 7s infinite",
+      colors: {
+        primary: '#8B4513', // Saddle Brown
+        secondary: '#CD853F', // Peru
+        background: '#FFF5EE', // Seashell
+        accent: '#D2691E', // Chocolate
       },
-      keyframes: {
-        blob: {
-          "0%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
-          "33%": {
-            transform: "translate(30px, -50px) scale(1.1)",
-          },
-          "66%": {
-            transform: "translate(-20px, 20px) scale(0.9)",
-          },
-          "100%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
-        },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
       },
     },
   },

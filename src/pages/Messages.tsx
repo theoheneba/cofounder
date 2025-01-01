@@ -1,47 +1,84 @@
-import React from 'react';
-import { Search } from 'lucide-react';
-import { MessageList } from '../components/messages/MessageList';
-import { ConversationView } from '../components/messages/ConversationView';
-import { EmptyState } from '../components/messages/EmptyState';
-import { useMessages } from '../hooks/useMessages';
+import { useState, useEffect } from 'react';
+import { ConversationList } from '@/components/messaging/conversation-list';
+import { MessageThread } from '@/components/messaging/message-thread';
+import { useAuth } from '@/contexts/auth-context';
+import * as chatApi from '@/lib/api/chat';
 
-export function Messages() {
-  const { conversations, activeConversation, setActiveConversation } = useMessages();
+export function MessagesPage() {
+  const { user } = useAuth();
+  const [selectedThread, setSelectedThread] = useState<string | null>(null);
+  const [threads, setThreads] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const loadThreads = async () => {
+      try {
+        setLoading(true);
+        const loadedThreads = await chatApi.getThreads(user.id);
+        setThreads(loadedThreads);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to load threads:', err);
+        setError('Failed to load conversations');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadThreads();
+  }, [user]);
+
+  const handleStartChat = async (userId: string) => {
+    if (!user) return;
+    
+    try {
+      const thread = await chatApi.createThread([user.id, userId]);
+      setSelectedThread(thread.id);
+      setThreads(prev => [thread, ...prev]);
+    } catch (err) {
+      console.error('Failed to create thread:', err);
+      setError('Failed to start conversation');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex h-[calc(100vh-4rem)] items-center justify-center bg-white">
+        <div className="text-gray-500">Loading conversations...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-12 min-h-[calc(100vh-4rem)]">
-          {/* Messages List */}
-          <div className="col-span-4 bg-white border-r">
-            <div className="p-4 border-b">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search users..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-            
-            <MessageList
-              conversations={conversations}
-              activeConversation={activeConversation}
-              onSelect={setActiveConversation}
-            />
-          </div>
-
-          {/* Conversation View */}
-          <div className="col-span-8 bg-gray-50">
-            {activeConversation ? (
-              <ConversationView conversation={activeConversation} />
-            ) : (
-              <EmptyState />
-            )}
-          </div>
-        </div>
+    <div className="flex h-[calc(100vh-4rem)] bg-white">
+      <div className="w-80 flex-shrink-0 border-r">
+        <ConversationList
+          conversations={threads}
+          onSelect={setSelectedThread}
+          selectedId={selectedThread}
+        />
       </div>
+      <div className="flex-1">
+        {selectedThread ? (
+          <MessageThread
+            threadId={selectedThread}
+            onStartVideoCall={() => {}}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-gray-500">
+            Select a conversation to start messaging
+          </div>
+        )}
+      </div>
+      
+      {error && (
+        <div className="fixed bottom-4 right-4 rounded-lg bg-red-100 px-4 py-2 text-sm text-red-600">
+          {error}
+        </div>
+      )}
     </div>
   );
 }
