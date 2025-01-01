@@ -6,7 +6,7 @@ import { SignupPage } from '@/pages/signup';
 import { LoginPage } from '@/pages/login';
 import { DashboardPage } from '@/pages/dashboard';
 import { ProfilePage } from '@/pages/profile';
-import ProfileEditPage from '@/pages/profile/edit';
+import { ProfileEditPage } from '@/pages/profile/edit';
 import { MessagesPage } from '@/pages/messages';
 import { SettingsPage } from '@/pages/settings';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
