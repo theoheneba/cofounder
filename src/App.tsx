@@ -1,5 +1,5 @@
 import { AuthProvider } from '@/contexts/auth-context';
-import { ProtectedRoute } from '@/components/auth/protected-route';
+import { AuthGuard } from '@/components/auth/auth-guard';
 import { Header } from '@/components/layout/header';
 import { HomePage } from '@/pages/home';
 import { SignupPage } from '@/pages/signup';
@@ -9,6 +9,7 @@ import { ProfilePage } from '@/pages/profile';
 import { ProfileEditPage } from '@/pages/profile/edit';
 import { MessagesPage } from '@/pages/messages';
 import { SettingsPage } from '@/pages/settings';
+import { AdminRoutes } from '@/pages/admin/routes';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 export default function App() {
@@ -18,47 +19,81 @@ export default function App() {
         <div className="min-h-screen bg-background">
           <Header />
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            {/* Public routes */}
+            <Route
+              path="/"
+              element={
+                <AuthGuard requireAuth={false}>
+                  <HomePage />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <AuthGuard requireAuth={false}>
+                  <SignupPage />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <AuthGuard requireAuth={false}>
+                  <LoginPage />
+                </AuthGuard>
+              }
+            />
+
+            {/* Protected routes */}
             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
+                <AuthGuard>
                   <DashboardPage />
-                </ProtectedRoute>
+                </AuthGuard>
               }
             />
             <Route
               path="/profile"
               element={
-                <ProtectedRoute>
+                <AuthGuard>
                   <ProfilePage />
-                </ProtectedRoute>
+                </AuthGuard>
               }
             />
             <Route
               path="/profile/edit"
               element={
-                <ProtectedRoute>
+                <AuthGuard>
                   <ProfileEditPage />
-                </ProtectedRoute>
+                </AuthGuard>
               }
             />
             <Route
               path="/messages"
               element={
-                <ProtectedRoute>
+                <AuthGuard>
                   <MessagesPage />
-                </ProtectedRoute>
+                </AuthGuard>
               }
             />
             <Route
               path="/settings"
               element={
-                <ProtectedRoute>
+                <AuthGuard>
                   <SettingsPage />
-                </ProtectedRoute>
+                </AuthGuard>
+              }
+            />
+
+            {/* Admin routes */}
+            <Route
+              path="/admin/*"
+              element={
+                <AuthGuard>
+                  <AdminRoutes />
+                </AuthGuard>
               }
             />
           </Routes>
